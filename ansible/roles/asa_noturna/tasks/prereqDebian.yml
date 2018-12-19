@@ -1,0 +1,13 @@
+- name: Stop apache - LIKE DEBIAN
+  service: 
+    name: apache2
+    state: stopped
+  ignore_errors: True
+  when: ansible_os_family == "Debian"
+
+- name: remove apache - LIKE DEBIAN
+  apt:
+    name: apache2*
+    state: absent
+  when: ansible_os_family == "Debian" 
+

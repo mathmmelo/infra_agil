@@ -1,0 +1,57 @@
+---
+- name: Playbook do Desafio
+  hosts: all
+  tasks:
+    - name: Removendo NGINX Ubuntu
+      apt: 
+        name: nginx
+        state: absent
+      when: ansible_distribution == "Ubuntu"
+ 
+    - name: Instalando Pacotes - Ubuntu
+      apt:
+        name:
+          - apache2
+          - libapache2-mod-php7.0
+          - php7.0
+        state: present
+        update_cache: yes
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Instalando apache Centos
+      yum: 
+        name: 
+          - httpd
+          - php
+        state: present
+      when: ansible_distribution == "CentOS"
+
+    - name: Remove NGINX centos
+      yum:
+        name: nginx
+        state: absent
+      when: ansible_distribution == "CentOS"
+
+    - name: Habilitar Modulo PHP7.0
+      command: a2enmod php7.0
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Copiando o arquivo Index.php
+      copy:
+        src: /etc/ansible/templates/index.php
+        dest: /var/www/html/index.php
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: httpd 
+      service:
+        name: httpd
+        state: restarted
+      when: ansible_distribution == "CentOS"
+
+    - name: apache
+      service:
+        name: apache2
+        state: restarted
+      when: ansible_distribution == "Ubuntu"    

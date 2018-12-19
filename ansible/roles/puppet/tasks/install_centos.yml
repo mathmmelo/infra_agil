@@ -1,0 +1,9 @@
+- name: Install Repositorio
+  yum:
+    name: /tmp/puppet6.rpm
+    state: present
+
+- name: Install Agent
+  yum: 
+    name: puppet-agent
+    state: present

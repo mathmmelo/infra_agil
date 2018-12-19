@@ -1,0 +1,10 @@
+- name: Install Repositório
+  apt:
+    deb: /tmp/puppet6.deb
+    state: present
+
+- name: Install Agent
+  apt: 
+    name: puppet-agent
+    state: present
+    update_cache: yes

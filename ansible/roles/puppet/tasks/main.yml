@@ -1,0 +1,11 @@
+---
+# tasks file for puppet
+- name: Roles for Depoy
+  hosts: all
+  tasks:
+    - include: prerequisitos.yml
+    - include: install_centos.yml
+      when: ansible_distribution == "CentOS"
+
+    - include: install_ubuntu.yml
+      when: ansible_distribution == "Ubuntu"

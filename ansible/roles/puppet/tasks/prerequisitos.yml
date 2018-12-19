@@ -1,0 +1,12 @@
+- name: Download Install Puppet RedHat
+  get_url:
+    url: https://yum.puppet.com/puppet6/puppet6-release-el-5.noarch.rpm
+    dest: /tmp/puppet6.rpm
+  when: ansible_os_family == "RedHat"
+
+- name: Download Install Puppet Debian
+  get_url: 
+    url: https://apt.puppetlabs.com/puppet6-release-xenial.deb
+    dest: /tmp/puppet6.deb
+  when: ansible_os_family == "Debian"
+
